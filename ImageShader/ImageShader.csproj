@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resource\building.jpg" />
+    <None Remove="Resource\city.jpg" />
+    <None Remove="Resource\city2.jpg" />
+    <None Remove="Resource\countryside.jpg" />
+    <None Remove="Resource\flower.jpg" />
+    <None Remove="Resource\parrot.jpg" />
+    <None Remove="Resource\person.jpg" />
+    <None Remove="Shader\ColorKeyAlphaHue.ps" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resource\building.jpg" />
+    <Resource Include="Resource\city.jpg" />
+    <Resource Include="Resource\city2.jpg" />
+    <Resource Include="Resource\countryside.jpg" />
+    <Resource Include="Resource\flower.jpg" />
+    <Resource Include="Resource\parrot.jpg" />
+    <Resource Include="Resource\person.jpg" />
+    <Resource Include="Shader\ColorKeyAlphaHue.ps" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command=".\Shader\CompileEffects.bat" />
+  </Target>
+
+</Project>

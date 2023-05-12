@@ -1,0 +1,81 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:viewModel="clr-namespace:ImageShader.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1280">
+    <Window.Resources>
+        <ResourceDictionary>
+            <viewModel:ColorKeyAlphaHue x:Key="eff" >
+                <viewModel:ColorKeyAlphaHue.Input2>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Image Source="/ImageShader;Component/Resource/back.jpg"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </viewModel:ColorKeyAlphaHue.Input2>
+            </viewModel:ColorKeyAlphaHue>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <Grid>
+                <Border  Background="LightGray" BorderThickness="2"  Width="1200" Height="680" 
+                HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="25,5,0,0">
+                    <Image Stretch="Uniform" x:Name="ImageControl"></Image>
+                </Border>
+
+            </Grid>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="30,0,0,0">
+                    <TextBlock Height="24"  Margin="0,0,0,0" FontSize="14">选择资源：</TextBlock>
+                    <ComboBox Width="150" SelectionChanged="ComboBox_SelectionChanged" 
+                              ItemsSource="{Binding ResourceNameList}" SelectedItem="{Binding ResourceNameItem}"></ComboBox>
+                    <Button Margin="10,0,0,0" Width="80" Height="24" Click="AddBack_Click">添加背景</Button>
+                    <Rectangle Stroke="Black"  Margin="10,0,5,0" Width="24" Height="24" Fill="{Binding Text,ElementName=colorName,Mode=TwoWay}">
+                    </Rectangle>
+
+                    <TextBlock Width="100" Height="22" x:Name="colorName" Margin="0,0,20,0" FontSize="14" 
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Background}"></TextBlock>
+
+                </StackPanel>
+                <Grid Grid.Row="1"> 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="30,10,0,0" >
+                        <TextBlock  Text="背景容差：" FontSize="14" ></TextBlock>
+                        <TextBox Width="41" Text="{Binding eff.ToleranceBack,Mode=TwoWay}" FontSize="14" ></TextBox>
+                        <Slider Width="100" Value="{Binding eff.ToleranceBack,Mode=TwoWay}" Margin="5,0,0,0"
+                            Maximum="1" Minimum="0" SmallChange="0.1" LargeChange="0.1"></Slider>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="10,10,0,0" Grid.Column="1">
+                        <TextBlock  Text="边缘容差：" FontSize="14" ></TextBlock>
+                        <TextBox Width="41" Text="{Binding eff.ToleranceEdge1,Mode=TwoWay}" FontSize="14" ></TextBox>
+                        <Slider Width="100" Value="{Binding eff.ToleranceEdge1,Mode=TwoWay}" Margin="5,0,0,0"
+                            Maximum="1" Minimum="0" SmallChange="0.1" LargeChange="0.1"></Slider>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Grid.Column="2">
+                        <TextBlock  Text="两色容差：" FontSize="14" ></TextBlock>
+                        <TextBox Width="41" Text="{Binding eff.ToleranceEdge2,Mode=TwoWay}" FontSize="14" ></TextBox>
+                        <Slider Width="100" Value="{Binding eff.ToleranceEdge2,Mode=TwoWay}" Margin="5,0,0,0"
+                            Maximum="1" Minimum="0" SmallChange="0.1" LargeChange="0.1"></Slider>
+                    </StackPanel>
+                </Grid>
+                
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
